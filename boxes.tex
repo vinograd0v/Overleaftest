@@ -12,8 +12,8 @@
     headfont=\bfseries\sffamily\color{black!70!black}, bodyfont=\normalfont,
     mdframed={
         linewidth=2pt,
-        rightline=true, topline=false, bottomline=false,
-        linecolor=black, backgroundcolor=black!5!white,
+        rightline=false,leftline=false, topline=false, bottomline=false,
+        linecolor=black, backgroundcolor=black!2!white,
     }
 ]{thmbox}
 
@@ -23,7 +23,7 @@
     mdframed={
         linewidth=0pt,
         rightline=false, topline=false, bottomline=false,
-        linecolor=black, backgroundcolor=black!1.5!white,
+        linecolor=black, backgroundcolor=black!2!white,
     },
     qed=\qedsymbol
 ]{thmproofbox}
@@ -34,9 +34,8 @@
     mdframed={
         linewidth=0pt,
         rightline=false, topline=false, bottomline=false,
-        linecolor=black, backgroundcolor=black!1.5!white,
+        linecolor=black, backgroundcolor=black!2!white,
     },
-    qed=\sqed
 ]{sancoya}
 
 
@@ -47,6 +46,7 @@
 \declaretheorem[style=thmbox, name=Teorema, numbered=no]{theorem}
 \declaretheorem[style=thmbox, name=Lema]{lemma}
 \declaretheorem[style=thmbox, numbered=no, name=Corolario]{corollary}
+\declaretheorem[style=thmbox, name=Solución, numbered=no]{solution}
 
 
 \declaretheorem[style=thmproofbox, name=Demostración]{replacementproof}
