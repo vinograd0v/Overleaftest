@@ -99,19 +99,18 @@ siendo \( g = 9.8 \) la aceleración de la gravedad. Si \( \theta = \frac{\pi}{4
     Tomando $x=(T,k)$ donde $T=2$ y $k=0.5$; y $\widehat{x}=(\widehat{T},\widehat{k})$ con $\widehat{T}=2+0,2=2,2$ y $\widehat{k}=0,5+0,1=0,6$, conociendo además que $\sin\left(\dfrac{\pi}{4}\right)=\dfrac{\sqrt{2}}
     {2}$, procedemos a calcular $f(T,k)$ y $f(\widehat{T},\widehat{k})$:
     \begin{align*}
-        f(T,k)&=\frac{\ln{\left(\cosh{\left(2\sqrt{0,5*9,8*\frac{\sqrt{2}}{2}}\right)}\right)}}{0,5}\approx 6,060487548\\
-        f(\widehat{T},\widehat{k})&=\frac{\ln{\left(\cosh{\left(2,2\sqrt{0,6*9,8*\frac{\sqrt{2}}{2}}\right)}\right)}}{0,6}\approx 6,321539517
+    f(T,k)&=\frac{\ln{\left(\cosh{\left(2\sqrt{0,5\times9,8\times\frac{\sqrt{2}}{2}}\right)}\right)}}{0,5}\approx 6,060487548\\    f(\widehat{T},\widehat{k})&=\frac{\ln{\left(\cosh{\left(2,2\sqrt{0,6\times9,8\times\frac{\sqrt{2}}{2}}\right)}\right)}}{0,6}\approx 6,321539517
     \end{align*}
 
-    De esta manera, el error absoluto obtenido al calcular D es:
+    De esta manera, el error absoluto obtenido al calcular D es
     \[
     E_{abs}=|6,321539517-6,060487548|=0,261051969
-    \] Para hallar la precisión con la que se conoce D, procedemos a calcular el error relativo:
+    \] Para hallar la precisión con la que se conoce D, calculamos el error relativo
     \[
     E_{rel}=\dfrac{E_{abs}}{|f(x)|}=\dfrac{0,261051969}{6,060487548}=0,04307441719
     \]
     
-    De esta manera obtenemos que $E_{rel}\approx 4,31*10^{-2}<5*10^{-2}$, lo cual significa que solo podemos conocer D con una precisión de una cifra significativa.
+    De esta manera obtenemos que $E_{rel}\approx 4,31\times10^{-2}<5\times10^{-2}$, lo cual significa que solo podemos conocer D con una precisión de una cifra significativa.
 
     \end{solution}
 \subsection*{Problema2}
@@ -121,16 +120,157 @@ Utilizando el método de redondeo.
     \item[(a)] Hallar el número de máquina más próximo a 125.6 y a 126 si trabaja con
     \begin{itemize}
         \item Base 10 y mantisa de 2 dígitos.
+        \begin{solution}
+            Para usar el método de redondeo, verificamos que para truncar 125,6 a 2 dígitos, el tercer dígito es $5\geq\frac{10}{2}$, por lo tanto obtenemos 130 y la representación de 125,6 en punto flotante es:
+            \[
+            fl(125,6)=1.3\times10^{2}
+            \]
+            De manera análoga, para 126, vemos que $6\geq\frac{10}{2}$, así:
+            \[
+            fl(126)=1.3\times10^{2}
+            \]
+            De donde concluimos que 130 es el número de máquina más próximo a 125,6 y 126.
+        \end{solution}
         \item Base 2 y mantisa de 8 dígitos.
+        \begin{solution}
+            Primero, convertimos 125,6 y 126 a base 2; Para convertir 125 a base 2 tenemos:
+            \begin{center}
+            \renewcommand{\arraystretch}{1.2}
+                \begin{tabular}{|c|c|c|}\hline
+                División & Cociente & Residuo\\ \hline
+                125$\div$2 & 62 & 1 \\ 
+                62$\div$2 & 31 & 0 \\ 
+                31$\div$2 & 15 & 1 \\
+                15$\div$2 & 7 & 1 \\
+                7$\div$2 & 3 & 1 \\
+                3$\div$2 & 1 & 1 \\
+                1$\div$2 & 0 & 1\\ \hline
+                \end{tabular}
+            \end{center}
+            Ahora, convertimos 0,6 a base 2:
+            \begin{center}
+                \renewcommand{\arraystretch}{1.2}
+                \begin{tabular}{|c|c|c|}\hline
+                   Producto & Resultado & Parte entera \\ \hline
+                    0.6$\times$2 & 1.2 & 1 \\
+                    0.2$\times$2 & 0.4 & 0 \\
+                    0.4$\times$2 & 0.8 & 0 \\
+                    0.8$\times$2 & 1.6 & 1 \\
+                    0.6$\times$2 & 1.2 & 1\\
+                    $\vdots$ & $\vdots$ & $\vdots$ \\ \hline
+                \end{tabular}
+            \end{center}
+            Así, 125,6 en binario es:
+            \[
+            (125,6)_{10}=(1111101,\overline{10011})_{2}
+            \]
+            Observamos que el noveno dígito de esta representación es 0, por lo tanto truncamos a 8 dígitos y así obtenemos
+            \[
+            fl(125,6)=1,1111011_{2}\times2^{6}
+            \]
+            Es decir, el número de máquina más próximo a 125,6 en base 2 y mantisa de 8 dígitos es 
+            \[
+        \left(1+\frac{1}{2}+\frac{1}{2^{2}}+\frac{1}{2^{3}}+\frac{1}{2^{4}}+\frac{0}{2^{5}}+\frac{1}{2^{6}}+\frac{1}{2^{7}}\right)\times 2^{6}=125,5 
+            \]
+            
+            Ahora convertimos 126 a base 2:
+            \begin{center}
+            \renewcommand{\arraystretch}{1.2}
+                \begin{tabular}{|c|c|c|}\hline
+                División & Cociente & Residuo\\ \hline
+                126$\div$2 & 63 & 0 \\ 
+                63$\div$2 & 31 & 1 \\ 
+                31$\div$2 & 15 & 1 \\
+                15$\div$2 & 7 & 1 \\
+                7$\div$2 & 3 & 1 \\
+                3$\div$2 & 1 & 1 \\
+                1$\div$2 & 0 & 1\\ \hline
+                \end{tabular}
+            \end{center}
+            Por lo tanto
+            \[
+            (126)_{10}=(1111110)_{2}
+            \]
+            Este numero es de 7 dígitos, por lo tanto se puede representar exactamente en punto flotante:
+            \[
+            fl(126)=1,1111100_{2}\times2^{6}
+            \]
+            luego el número de maquina más próximo a 126 es 126.
+            
+        \end{solution}
     \end{itemize}
-
     \item[(b)] Verificar para \( x = 125.6 \) la cota para el error relativo
     \[
     \left|\frac{x - \text{fl}(x)}{x}\right| \leq \epsilon
     \]
     si \( \epsilon = \frac{1}{2} \beta^{1-d} \) donde \( \beta \) es la base y \( d \) la longitud de la mantisa.
-
+    \begin{solution}
+        Para la representación en base 10 y mantisa de 2 dígitos, el error relativo es:
+        \[
+        \left|\frac{125,6-130}{125,6}\right|=0.035<\frac{1}{2}\times10^{1-2}=0,05
+        \]
+        De manera similar, calculamos el error para base 2 y mantisa de 8 dígitos
+        \[
+        \left|\frac{125,6-125,5}{125,6}\right|\approx 0,000796<\frac{1}{2}\times2^{1-8}=2^{-8}=0,00390625
+        \]
+        En ambos casos, verificamos que se cumple la cota del error.
+    \end{solution}
     \item[(c)] ¿Cuál es, en cada caso, el valor que da la máquina como resultado de las operaciones \( 126 + 126.5 \) y \( 126 - 125.6 \)? ¿Cuál es el error relativo de estos resultados?
+    \begin{solution}
+        \begin{itemize}
+            \item Para base 10 y mantisa de 2 dígitos se tiene:
+            \begin{align*}
+                fl(126+126,5)&=fl(fl(126)+fl(126,5))\\
+                &=fl(1,3\times10^2+1,3\times10^2)\\
+                &=fl(2,6\times10^2)\\
+                &=2,6\times10^2\\
+                &=260
+            \end{align*}
+            Sin embargo 126+126,5=252,5, por lo tanto el error relativo de este resultado es:
+            \[
+            \left|\frac{252,5-260}{252,5}\right|\approx 0,0297
+            \]
+            Calculemos ahora $fl(126-125,6)$
+            \begin{align*}
+                fl(126-125,6)&=fl(fl(126)-fl(125,6))\\
+                &=fl(1,3\times10^2-1,3\times10^2)\\
+                &=fl(0)\\
+                &=0
+            \end{align*}
+            El error relativo es, entonces:
+            \[
+            \left|\frac{0,4-0}{0,4}\right|= 1
+            \]
+            Aquí podemos ver que debido a que el sistema de punto flotante representa dos números distintos con el mismo número, aunado a la pequeña cantidad de dígitos de la mantisa, el error llega a propagarse de tal manera que al restar dos números cercanos se obtiene un error relativo del 100\%, lo cual significa que en algunos casos, no podemos conocer ninguna cifra significativa al efectuar la resta de dos números de máquina.
+            \item Base 2 y mantisa de 8 dígitos. 
+            
+            Para convertir 126,5 a binario usaremos que $(126)_{10}=(1111110)_{2}$ y $(0,5)_{10}=(0,1_{2})$, de esta manera $(126,5)_{10}=(1111110,1)_{2}$ y su representación en punto flotante es $fl(126,5)=1,1111101_{2}\cdot2^6$. Así, al efectuar 126+126,5 tenemos:
+            \begin{align*}
+                fl(126+126,5)&=fl(fl(126)+fl(126,5))\\
+                &=fl(1,1111100_{2}\cdot2^{6}+1,1111101_{2}\cdot2^{6})\\
+                &=fl(11,1111001_{2}\cdot2^{6})\\
+                &=1,1111101_{2}\cdot2^{7}
+            \end{align*}
+            Es decir:
+            \[
+            \left(1+\frac{1}{2}+\frac{1}{2^{2}}+\frac{1}{2^{3}}+\frac{1}{2^{4}}+\frac{1}{2^{5}}+\frac{0}{2^{6}}+\frac{1}{2^{7}}\right)\times2^{7}=253
+            \]
+            Hallamos entonces el error relativo
+            \[
+            \left|\frac{252,5-253}{252,2}\right|\approx 0,00198
+            \]
+            Calculemos ahora 126-125,6:
+            \begin{align*}
+                fl(126-125,6)&=fl(fl(126)-fl(126,5))\\
+                &=fl(1,1111100_{2}\cdot2^{6}-1,1111011_{2}\cdot2^{6})\\
+                &=1,0000000_{2}\cdot2^{-1}
+            \end{align*}
+            Es decir $fl(126-125,6)=0,5$, luego el error relativo es:
+            \[
+            \left|\frac{0,6-0,5}{0,6}\right|=0,1\overline{6}
+            \]
+        \end{itemize}
+    \end{solution}
 \end{itemize}
 
 \subsection*{Problema3}
@@ -145,6 +285,9 @@ Suponga que una compañía de computadores está desarrollando un nuevo sistema 
 Preguntas:
 \begin{itemize}
     \item[(a)] ¿Cuántos valores diferentes de punto flotante no negativos pueden representarse por medio de este sistema de punto flotante?
+    \begin{solution}
+        
+    \end{solution}
     \item[(b)] La misma pregunta para el caso \( (\beta, t, L, U) = (8, 5, -100, 100) \), el cual la compañía está contemplando en particular.
     \item[(c)] ¿Cuál es el valor aproximado (en base 10) del número más grande y el número positivo más pequeño que pueden ser representado en este sistema de punto flotante?
     \item[(d)] Para el caso general, demuestre que los errores relativos producidos por realizar truncamiento y redondeo son
@@ -166,7 +309,40 @@ donde \( S(x, N) \) es la suma parcial con \( N + 1 \) términos.
 
 \begin{itemize}
     \item[(a)] Escriba un programa que grafique el error relativo de la suma, \( \dfrac{|S(x, N) - e^x|}{e^x} \) versus \( N \) (hasta \( N = 60 \)) para un valor dado de \( x \). Pruebe su programa para \( x = 10, 2, -2 \) y \( -10 \). De las gráficas, explique por qué ésta no es una buena manera para evaluar \( e^x \) cuando \( x < 0 \).
+
+    \begin{solution}
+
+    Implementamos en Python un código que grafica el error relativo de la suma parcial de Taylor, obtuvimos el resultado
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{Gráficas/AN-T1-P4A.eps}
+        \caption{Error relativo}
+        \label{coyo4}
+    \end{figure}
+
+Luego pongo pq tiene sentido que el error aumente en negativos
+    \end{solution}
+    
     \item[(b)] Modifique su programa tal que use la identidad \( e^x = \dfrac{1}{e^{-x}} = \dfrac{1}{S(-x, \infty)} \) para evaluar la función exponencial cuando \( x \) es negativa. Explique por qué esta técnica funciona mejor.
+
+\begin{solution}
+    Para este caso obtuvimos la gráfica del error
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{Gráficas/AN-T1-P4B.eps}
+        \caption{Error relativo}
+        \label{coyo4B}
+    \end{figure}
+
+    Esta técnica funciona mejor ya que si $x<0$, entonces $-x>0$ y por lo tanto al calcular 
+
+    $$e^x=\dfrac{1}{e^{-x}}\quad x<0,$$
+
+    el término $-x$ es positivo y podemos aproximar de manera adecuada $e^{-x}$ por $S(-x,N)$ como consecuencia del numeral anterior.
+\end{solution}
+    
 \end{itemize}
 
 \subsection*{Problema5}
@@ -208,7 +384,7 @@ $$
 se sigue que
 
 
-$$\left|\frac{f\left(x_0+h\right)-f\left(x_0-h\right)}{2 h}-f^{\prime}(x_0)\right|\leq \frac{h^2}{6} f^{\prime \prime \prime}\left(x_0\right)+O(h^4)$$
+$$\left|\frac{f\left(x_0+h\right)-f\left(x_0-h\right)}{2 h}-f^{\prime}(x_0)\right|\leq \frac{h^2}{6} f^{\prime \prime \prime}\left(x_0\right)$$
 
 \end{proof}
     
@@ -282,11 +458,43 @@ Repaso de notación \( O \) mayúscula y \( o \) minúscula de una función. Si 
 
 \begin{itemize}
     \item[(a)] \( f(x) = o(x) \) cuando \( x \to 0 \)
+    \begin{solution}
+        Cuando $x\to 0$, existe $M>0$ tal que $|f(x)|\leq M|x^2|$, como $x\neq 0$, tenemos que $\left|\dfrac{f(x)}{x}\right|\leq M|x|$, Luego $\displaystyle\lim_{x\to 0}\left|\frac{f(x)}{x}\right|\leq 0.$ Por el valor absoluto y su continuidad, concluimos que $$\lim_{x\to 0}\frac{f(x)}{x}= 0.$$ Es decir $f(x)=o(x)$ cuando $x\to 0.$ Así la afirmación es \textbf{Verdadera.}
+    \end{solution}
     \item[(b)] \( f(x) = o(x^2) \) cuando \( x \to 0 \)
+    \begin{solution}
+    Sea $f(x)=x^2$, es claro que cuando $x\to 0,$ $f(x)=O(x^2)$ Ahora note que $\dfrac{f(x)}{x^2}=1.$ Por lo tanto
+    $$\lim_{x\to 0}\frac{f(x)}{x^2}=1.$$
+    Es decir que $f(x)\neq o(x^2).$ Así la afirmación es \textbf{Falsa.}
+    \end{solution}
     \item[(c)] \( f(x) \cdot g(x) = O(x^5) \) cuando \( x \to 0 \)
+    \begin{solution}
+        Cuando $x\to 0$ por hipótesis, existen $M,N>0,$ tales que $|f(x)|\leq M|x^2|$ y $|g(x)|\leq N|x^3|.$ Al ser cantidades positivas, la desigualdad se mantiene si las multiplicamos, es decir
+        $$|f(x)||g(x)|\leq (M|x^2|)(N|x^3|).$$
+        Si tomamos $K=MN>0,$ tenemos que $|f(x)g(x)|\leq K|x^5|,$ cuando $x\to 0.$ POr lo que $f(x)g(x)=O(x^5).$ Así la afirmación es \textbf{Verdadera.}
+        
+    \end{solution}
     \item[(d)] \( f(x) + g(x) = O(x^3) \) cuando \( x \to 0 \)
+    \begin{solution}
+        Sean $f(x)=x^2$ y $g(x)=x^3$, es claro que cuando $x\to 0,$ $f(x)=O(x^2)$ mientras que $g(x)=O(x^3).$ Supongamos que la afirmación es cierta. Luego existe $M>0$ tal que
+        $$|x^2+x^3|\leq M|x^3|.$$
+        Así 
+        $$\left|\frac{1}{x}+1\right|\leq M$$
+        Pero como esto se tiene cuando $x\to 0$, el lado derecho eventualmente se hará mas grande que cualquier constante fija. Por lo tanto $f(x)+g(x)\neq O(x^3).$ Asi la afirmación es \textbf{Falsa.}
+    \end{solution}
     \item[(e)] \( g(x) - h(x) = 0 \)
+    \begin{solution}
+        Sean $g(x)=2x^3$ y $h(x)=x^3.$ es claro que ambas son $O(x^3)$ cuando $x\to 0$ pero claramente
+        $$2x^3-x^3=x^3\neq 0,$$
+        siempre que $x\neq 0.$ que es el caso. Así la afirmación es \textbf{Falsa.}
+    \end{solution}
     \item[(f)] \( \dfrac{g(x)}{h(x)} = O(1) \) cuando \( x \to 0 \)
+    \begin{solution}
+        Sean $g(x)=x^3$ y $h(x)=x^4.$ Para $0<|x|<1$ tenemos que $|x^4|\leq |x^3|$, luego cuando $x\to 0,$ tenemos que $g(x)=O(x^3)$ y $h(x)=O(x^3).$ Supongamos que la afirmación es cierta. En ese caso tendríamos que existe $M>0$ tal que
+        $$\left|\frac{1}{x}\right|=\left|\frac{x^3}{x^4}\right|\leq M.$$
+        Luego cuando $x\to 0$ en algún punto el lado izquierdo sera mas grande que alguna constante fija, una contradicción. Mostrando así que $\dfrac{g(x)}{h(x)}\neq O(1).$ Así la afirmación es \textbf{Falsa.}
+    \end{solution}
 \end{itemize}
 \end{document}
 
+|
