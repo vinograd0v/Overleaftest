@@ -90,28 +90,27 @@ siendo \( g = 9.8 \) la aceleración de la gravedad. Si \( \theta = \frac{\pi}{4
     Despejando D de la ecuación, se tiene que:
     \[ D=\frac{\ln{\left(\cosh{\left(T\sqrt{kg\sin{\theta}}\right)}\right)}}{k}
     \]
-    Empezaremos asumiendo que el error de cómputo es despreciable, debido a la cantidad de cifras significativas que reporta la calculadora (10 cifras), en contraste con los datos que tenemos, que tienen a lo más dos cifras significativas. De modo que el error podemos obtenerlo de la ecuación:
-    \begin{align*}
-    \text{Error total}&\approx f(\widehat{x})-f(x)\\
-    \intertext{donde}\\ f(x)=f(T,k)&=\frac{\ln{\left(\cosh{\left(T\sqrt{kg\sin{\theta}}\right)}\right)}}{k}
-    \end{align*}
-    
-    Tomando $x=(T,k)$ donde $T=2$ y $k=0.5$; y $\widehat{x}=(\widehat{T},\widehat{k})$ con $\widehat{T}=2+0,2=2,2$ y $\widehat{k}=0,5+0,1=0,6$, conociendo además que $\sin\left(\dfrac{\pi}{4}\right)=\dfrac{\sqrt{2}}
-    {2}$, procedemos a calcular $f(T,k)$ y $f(\widehat{T},\widehat{k})$:
-    \begin{align*}
-    f(T,k)&=\frac{\ln{\left(\cosh{\left(2\sqrt{0,5\times9,8\times\frac{\sqrt{2}}{2}}\right)}\right)}}{0,5}\approx 6,060487548\\    f(\widehat{T},\widehat{k})&=\frac{\ln{\left(\cosh{\left(2,2\sqrt{0,6\times9,8\times\frac{\sqrt{2}}{2}}\right)}\right)}}{0,6}\approx 6,321539517
-    \end{align*}
-
-    De esta manera, el error absoluto obtenido al calcular D es
+    Tomaremos $D=\varphi(T,k)$, de tal manera que el error relativo venga dado por: 
     \[
-    E_{abs}=|6,321539517-6,060487548|=0,261051969
-    \] Para hallar la precisión con la que se conoce D, calculamos el error relativo
-    \[
-    E_{rel}=\dfrac{E_{abs}}{|f(x)|}=\dfrac{0,261051969}{6,060487548}=0,04307441719
+    \frac{\phi(\widehat{T},\widehat{k})-\phi(T,k)}{\phi(T,k)}\approx \Delta T\frac{\phi_{T}(T,k)}{\phi(T,k)}+\Delta k\frac{\phi_{k}(T,k)}{\phi(T,k)}
     \]
-    
-    De esta manera obtenemos que $E_{rel}\approx 4,31\times10^{-2}<5\times10^{-2}$, lo cual significa que solo podemos conocer D con una precisión de una cifra significativa.
-
+    Calculando $\phi_{T}$ y $\phi_{k}$ obtenemos:
+    \begin{align*}
+        \phi_{T}(T,k)&=\sqrt{\frac{g\sin\theta}{k}}\tanh\left(T\sqrt{kg\sin\theta}\right)\\
+        \intertext{y}\\
+        \phi_{k}(T,k)&=\frac{T\sqrt{kg\sin\theta}\tanh\left(T\sqrt{kg\sin\theta}\right)-2\ln{\left(\cosh{\left(T\sqrt{kg\sin\theta}\right)}\right)}}{2k^2}
+    \end{align*}
+    Con lo cual la estimación del error nos queda:
+    \[
+    \frac{\phi(\widehat{T},\widehat{k})-\phi(T,k)}{\phi(T,k)}\approx \Delta T\frac{\sqrt{kg\sin\theta}\tanh\left(T\sqrt{kg\sin\theta}\right)}{\ln\left(\cosh{\left(T\sqrt{kg\sin\theta}\right)}\right)}+\Delta k\left(\frac{T\sqrt{kg\sin\theta}\tanh\left(T\sqrt{kg\sin\theta}\right)}{2k\ln\left(\cosh{\left(T\sqrt{kg\sin\theta}\right)}\right)}-\frac{1}{k}\right)
+    \]
+    De esta forma, tomando $k=0,5$, $T=2$, $g=9,8$, $\Delta T=0,2$, $\Delta k=0,1$ y sabiendo que $\sin\left(\dfrac{\pi}{4}\right)=\dfrac{\sqrt{2}}{2}$, al calcular $\phi(T,k)$ y estimar el error relativo, obtenemos:
+    \begin{align*}
+        \phi(T,k)& \approx 6,0605\\
+        \intertext{ y el error relativo es}\\
+        \frac{\phi(\widehat{T},\widehat{k})-\phi(T,k)}{\phi(T,k)}\approx 0,2\times&\frac{1,8592}{3,0302}+0,1\times\left(\frac{3,7185}{3,0302}-2\right)\approx 0,0454
+    \end{align*}
+    Así, obtenemos un error relativo de $4,54\times10^{-2}\leq5\times10^{-2}$, lo cual significa que solo conocemos $D$ con una precisión de una cifra significativa.
     \end{solution}
 \subsection*{Problema2}
 Utilizando el método de redondeo.
@@ -164,13 +163,13 @@ Utilizando el método de redondeo.
             \[
             (125,6)_{10}=(1111101,\overline{10011})_{2}
             \]
-            Observamos que el noveno dígito de esta representación es 0, por lo tanto truncamos a 8 dígitos y así obtenemos
+            Ya que en el sistema binario, el único digito diferente de 0 es 1, podemos representar el número con 9 dígitos, de esta forma, observamos que el décimo dígito de esta representación es 0, por lo tanto truncamos a 9 dígitos y así obtenemos
             \[
-            fl(125,6)=1,1111011_{2}\times2^{6}
+            fl(125,6)=1,11110110_{2}\times2^{6}
             \]
             Es decir, el número de máquina más próximo a 125,6 en base 2 y mantisa de 8 dígitos es 
             \[
-        \left(1+\frac{1}{2}+\frac{1}{2^{2}}+\frac{1}{2^{3}}+\frac{1}{2^{4}}+\frac{0}{2^{5}}+\frac{1}{2^{6}}+\frac{1}{2^{7}}\right)\times 2^{6}=125,5 
+        \left(1+\frac{1}{2}+\frac{1}{2^{2}}+\frac{1}{2^{3}}+\frac{1}{2^{4}}+\frac{0}{2^{5}}+\frac{1}{2^{6}}+\frac{1}{2^{7}}+\frac{0}{2{8}}\right)\times 2^{6}=125,5 
             \]
             
             Ahora convertimos 126 a base 2:
@@ -193,7 +192,7 @@ Utilizando el método de redondeo.
             \]
             Este numero es de 7 dígitos, por lo tanto se puede representar exactamente en punto flotante:
             \[
-            fl(126)=1,1111100_{2}\times2^{6}
+            fl(126)=1,11111000_{2}\times2^{6}
             \]
             luego el número de maquina más próximo a 126 es 126.
             
@@ -244,25 +243,25 @@ Utilizando el método de redondeo.
             Aquí podemos ver que debido a que el sistema de punto flotante representa dos números distintos con el mismo número, aunado a la pequeña cantidad de dígitos de la mantisa, el error llega a propagarse de tal manera que al restar dos números cercanos se obtiene un error relativo del 100\%, lo cual significa que en algunos casos, no podemos conocer ninguna cifra significativa al efectuar la resta de dos números de máquina.
             \item Base 2 y mantisa de 8 dígitos. 
             
-            Para convertir 126,5 a binario usaremos que $(126)_{10}=(1111110)_{2}$ y $(0,5)_{10}=(0,1_{2})$, de esta manera $(126,5)_{10}=(1111110,1)_{2}$ y su representación en punto flotante es $fl(126,5)=1,1111101_{2}\cdot2^6$. Así, al efectuar 126+126,5 tenemos:
+            Para convertir 126,5 a binario usaremos que $(126)_{10}=(1111110)_{2}$ y $(0,5)_{10}=(0,1_{2})$, de esta manera $(126,5)_{10}=(1111110,1)_{2}$ y su representación en punto flotante es $fl(126,5)=1,11111010_{2}\times2^6$. Así, al efectuar 126+126,5 tenemos:
             \begin{align*}
                 fl(126+126,5)&=fl(fl(126)+fl(126,5))\\
-                &=fl(1,1111100_{2}\cdot2^{6}+1,1111101_{2}\cdot2^{6})\\
-                &=fl(11,1111001_{2}\cdot2^{6})\\
-                &=1,1111101_{2}\cdot2^{7}
+                &=fl(1,11111000_{2}\times2^{6}+1,1111101_{2}\times2^{6})\\
+                &=fl(11,1111001_{2}\times2^{6})\\
+                &=1,11111001_{2}\times2^{7}
             \end{align*}
             Es decir:
             \[
-            \left(1+\frac{1}{2}+\frac{1}{2^{2}}+\frac{1}{2^{3}}+\frac{1}{2^{4}}+\frac{1}{2^{5}}+\frac{0}{2^{6}}+\frac{1}{2^{7}}\right)\times2^{7}=253
+            \left(1+\frac{1}{2}+\frac{1}{2^{2}}+\frac{1}{2^{3}}+\frac{1}{2^{4}}+\frac{1}{2^{5}}+\frac{0}{2^{6}}+\frac{0}{2^{7}}+\frac{1}{2^{8}}\right)\times2^{7}=252,5
             \]
             Hallamos entonces el error relativo
             \[
-            \left|\frac{252,5-253}{252,2}\right|\approx 0,00198
+            \left|\frac{252,5-252,5}{252,2}\right|= 0
             \]
             Calculemos ahora 126-125,6:
             \begin{align*}
-                fl(126-125,6)&=fl(fl(126)-fl(126,5))\\
-                &=fl(1,1111100_{2}\cdot2^{6}-1,1111011_{2}\cdot2^{6})\\
+                fl(126-125,6)&=fl(fl(126)-fl(125,6))\\
+                &=fl(1,11111000_{2}\cdot2^{6}-1,11110110_{2}\cdot2^{6})\\
                 &=1,0000000_{2}\cdot2^{-1}
             \end{align*}
             Es decir $fl(126-125,6)=0,5$, luego el error relativo es:
@@ -286,19 +285,76 @@ Preguntas:
 \begin{itemize}
     \item[(a)] ¿Cuántos valores diferentes de punto flotante no negativos pueden representarse por medio de este sistema de punto flotante?
     \begin{solution}
-        
+    Recordemos que en general la representación de punto flotante esta dada por
+    $$fl(x)=\pm\left(d_0+\frac{d_1}{\beta}+\frac{d_2}{\beta^2}+\cdots+\frac{d_{t-1}}{\beta^{t-1}}\right)\beta^e=\pm(d_0.d_1d_2\dots d_{t-1})\beta^e$$
+     Como son los no negativos y los valores del punto flotante están normalizados, Procedamos primero con los positivos, como todos los valores están normalizados, el primer dígito de la representación tiene que ser diferente de 0, es decir, $1\leq d_0\leq \beta-1,$ luego para $d_i$ con $1\leq i\leq t-1$, como estos no tienen restricción podemos tomarlos tal que $0\leq d_0\leq \beta-1.$ Por lo que de momento, por el principio fundamental del conteo tenemos $(\beta-1)(\beta)^{t-1}$ valores diferentes. Note que decimos de momento ya que no hemos considerado los posibles exponentes. Ahora tomando $e$ un posible exponente, sabemos que $L\leq e\leq U$, luego la cantidad de posibles exponentes para cada uno de los valores encontrados seria $U-L+1.$ Así concluimos que la cantidad de valores no negativos diferentes en este sistema de punto flotante es
+     $$(\beta-1)(\beta)^{t-1}(U-L+1)+1=.$$
+     Note que ese mas 1 del final es añadido para contar el caso particular del 0, que es el único que tiene una mantisa y exponente de ceros.
     \end{solution}
     \item[(b)] La misma pregunta para el caso \( (\beta, t, L, U) = (8, 5, -100, 100) \), el cual la compañía está contemplando en particular.
+    \begin{solution}
+        Como hallamos en el numeral anterior una formula para un sistema de punto flotante arbitrario, aquí basta simplemente con reemplazar los respectivos valores, es decir
+        \begin{align*}
+           (\beta-1)(\beta)^{t-1}(U-L+1)+1&=(8-1)8^{(5-1)}(100-(-100)+1)+1\\
+           &=7\cdot 8^4\cdot201+1\\
+           &=5763073.
+        \end{align*}
+    \end{solution}
     \item[(c)] ¿Cuál es el valor aproximado (en base 10) del número más grande y el número positivo más pequeño que pueden ser representado en este sistema de punto flotante?
+    \begin{solution}
+    \begin{itemize}
+        \item Primero responderemos la pregunta de cual es el numero mas grande. Tenemos que tal numero seria uno donde cada $d_i=\beta-1$ y nuestro $e=U$, así para el sistema particular tenemos que ese numero es
+        $$x=(7.7777)8^{100}.$$
+        Ahora si lo vemos en representación decimal tenemos que
+        $$x=\left(7+\frac{7}{8}+\frac{7}{8^2}+\frac{7}{8^3}+\frac{7}{8^4}\right)8^{100}\approx 1,62957\times10^{91}.$$
+        \item Ahora el numero mas pequeño positivo es cuando tenemos que $d_0=1$, mientras que $d_i=0$ para los demás, esto ya que esta normalizado, y consideramos $e=L$. Para nuestro caso particular tenemos que 
+        $$y=(1.0000)8^{-100}=\left(1+\frac{0}{8}+\frac{0}{8^2}+\frac{0}{8^3}+\frac{0}{8^4}\right)8^{-100}\approx4,90909\times 10^{-91}.$$  
+    \end{itemize}   
+    \end{solution}
     \item[(d)] Para el caso general, demuestre que los errores relativos producidos por realizar truncamiento y redondeo son
     \[
-    \left|\frac{\text{fl}(x) - x}{x}\right| = 
+    \left|\frac{\text{fl}(x) - x}{x}\right| \leq
     \begin{cases}
         \beta^{1-t} & \text{cuando se efectúa truncamiento}, \\
         \frac{1}{2} \beta^{1-t} & \text{cuando se efectúa redondeo}.
     \end{cases}
     \]
 \end{itemize}
+\begin{sproof}
+    La prueba la tenemos que dividir en el caso del truncamiento y el caso del redondeo. Primero consideremos el caso del truncamiento. Tenemos que la expansión decimal de un numero $x>0,$ en un sistema de punto flotante arbitrario es
+    $$x=\left(d_0+\frac{d_1}{\beta}+\frac{d_2}{\beta}+\cdots+\frac{d_{t-1}}{\beta^{t-1}}+\frac{d_t}{\beta^{t}}+\frac{d_{t+1}}{\beta^{t+1}}+\cdots\right)\beta^e=(d_0.d_1d_2\dots d_{t-1}d_{t}d_{t+1}\dots)\beta^e.$$
+    Luego si realizamos el truncamiento en el termino $t-1$, es decir, hacemos $0$ los $d_i$ cuando $i>t-1.$ tenemos que
+    $$fl(x)=\left(d_0+\frac{d_1}{\beta}+\frac{d_2}{\beta}+\cdots+\frac{d_{t-1}}{\beta^{t-1}}\right)\beta^e.$$
+    Ahora note que si consideramos el error absoluto, obtenemos que
+    \begin{align*}
+        |fl(x)-x|&=\left|\left(-\frac{d_t}{\beta^{t}}-\frac{d_{t+1}}{\beta^{t+1}}-\cdots\right)\beta^e\right|\\
+        &=\left(\frac{d_t}{\beta^{t}}+\frac{d_{t+1}}{\beta^{t+1}}+\cdots\right)\beta^e\\
+        &=\left(d_t+\frac{d_{t+1}}{\beta}+\cdots\right)\frac{\beta^e}{\beta^t}\\
+        &\leq \beta^{1+e-t}
+    \end{align*}
+    Note que como $d_i\leq \beta$ para todo $i,$ ese ultimo paso para acotar es valido. Ahora note que como $x>0,$ tenemos que $|x|\geq d_0\beta^e\geq \beta^e.$ En efecto, ya que como el sistema esta normalizado, necesariamente $d_0\geq 1$ y ademas el numero $d_0$ seguido de ceros es siempre menor que $d_0$ seguido de cualquier cadena de dígitos permitida. Así tenemos que $\dfrac{1}{|x|}\leq \dfrac{1}{\beta^e}.$ Multiplicando en la anterior desigualdad obtenida tenemos que
+    $$\left|\frac{fl(x)-x}{x}\right|\leq \frac{\beta^{1+e-t}}{\beta^e}=\beta^{1-t}.$$
+
+    Ahora consideremos el caso donde redondeamos. Note que podemos asumir que $d_t\geq \dfrac{\beta}{2},$ ya que en caso contrario no hay redondeo y simplemente es un truncamiento. En este caso nuestra aproximación es
+    $$fl(x)=\left(d_0+\frac{d_1}{\beta}+\frac{d_2}{\beta}+\cdots+\frac{d_{t-1}+1}{\beta^{t-1}}\right)\beta^e=(d_0.d_1d_2\dots (d_{t-1}+1))\beta^e.$$
+    Luego si consideramos nuevamente el error absoluto, obtenemos 
+    \begin{align*}
+    |fl(x)-x|&=|(0.\underbrace{0\dots 0}_{t-1 veces}(\beta-1-d_t)(\beta-1-d_{t+1})\dots)\beta^e|\\
+        &=((\beta-1-d_t).(\beta-1-d_{t+1})\dots)\beta^{e-t}\\
+        &\leq \frac{1}{2}\beta\beta^{e-t}=\frac{\beta^{1+e-t}}{2}.
+    \end{align*}
+    En efecto, ya que como $d_t\geq \dfrac{\beta}{2},$ tenemos que $\beta-1-d_t\leq\beta-1-\dfrac{\beta}{2}=\dfrac{\beta}{2}-1\leq \dfrac{\beta}{2}.$ Como el $x$ sigue siendo el mismo del anterior caso, seguimos teniendo que $\dfrac{1}{|x|}\leq \dfrac{1}{\beta^e}.$ Procediendo de la misma manera obtenemos
+    $$\left|\frac{fl(x)-x}{x}\right|\leq \frac{\beta^{1+e-t}}{2\beta^e}=\frac{1}{2}\beta^{1-t}.$$
+    Note que el caso cuando $x=0$ no es necesario revisarlo ya que la representación es idéntica, mientras que el caso $x<0$ como estamos trabajando dentro de un valor absoluto es aplicar el mismo razonamiento. De esta manera hemos demostrado que
+    \[
+    \left|\frac{\text{fl}(x) - x}{x}\right| \leq 
+    \begin{cases}
+        \beta^{1-t} & \text{cuando se efectúa truncamiento}, \\
+        \frac{1}{2} \beta^{1-t} & \text{cuando se efectúa redondeo}.
+    \end{cases}
+    \]
+    
+\end{sproof}
 
 \subsection*{Problema4}
 Considere la expansión de Taylor para la función exponencial
@@ -321,7 +377,12 @@ donde \( S(x, N) \) es la suma parcial con \( N + 1 \) términos.
         \label{coyo4}
     \end{figure}
 
-Luego pongo pq tiene sentido que el error aumente en negativos
+En la gráfica se evidencia que el error aumenta cuando los valores de $x$ son negativos, note que si $x$ es negativo entonces reescribimos la expresión como $e^{-x}$ con $x>0$, de esto se sigue que
+\[
+e^{-x} = 1 -x + \frac{x^2}{2!} - \frac{x^3}{3!} + \dots = \sum_{i=0}^{\infty} \frac{(-1)^ix^i}{i!} = \lim_{N \to \infty} \dfrac{1}{S(x,N)},
+\]
+
+como al calcular el error necesitamos aproximar este término, entonces al truncar la serie alternante obtenemos resultados que oscilan alrededor del 0, por lo que la expresión $1/S(x,N)$ toma valores grandes, en cambio si $x$ es positivo nuestra serie truncada se aleja cada vez más de 0.
     \end{solution}
     
     \item[(b)] Modifique su programa tal que use la identidad \( e^x = \dfrac{1}{e^{-x}} = \dfrac{1}{S(-x, \infty)} \) para evaluar la función exponencial cuando \( x \) es negativa. Explique por qué esta técnica funciona mejor.
@@ -340,7 +401,7 @@ Luego pongo pq tiene sentido que el error aumente en negativos
 
     $$e^x=\dfrac{1}{e^{-x}}\quad x<0,$$
 
-    el término $-x$ es positivo y podemos aproximar de manera adecuada $e^{-x}$ por $S(-x,N)$ como consecuencia del numeral anterior.
+    el término $-x$ es positivo y podemos aproximar de manera adecuada $e^{-x}$ por $S(-x,N)$ como consecuencia del numeral anterior ya la serie no es alternante.
 \end{solution}
     
 \end{itemize}
@@ -430,29 +491,44 @@ con lo que obtuvimos la gráfica
     De manera análoga al numeral a) tenemos que
     
 $$
-8f\left(x_0+h\right)-8f\left(x_0-h\right)=16 h f^{\prime}\left(x_0\right)+16\frac{h^3}{6} f^{\prime \prime \prime}\left(x_0\right)+O(h^5),
+8f\left(x_0+h\right)-8f\left(x_0-h\right)=16 h f^{\prime}\left(x_0\right)+16\frac{h^3}{6} f^{\prime \prime \prime}\left(x_0\right)+ \dfrac{8h^5}{60}f^{(5)}(x_0)+O(h^6),
 $$
 
 por otro lado
 
 $$\begin{aligned}
- -&f(x_0+2 h)=-f\left(x_0\right)-2h f^{\prime}\left(x_0\right)-\frac{4 h^2}{2} f^{\prime \prime}\left(x_0\right)-\frac{8 h^3}{6} f^{\prime \prime}\left(x_0\right)+O\left(h^5\right),\\
-& f(x_0-2 h)=f\left(x_0\right)-2 h f^{\prime}\left(x_0\right)+\frac{4 h^2}{2}f^{\prime\prime}(x_0)-\frac{8 h^3}{6} f^{\prime \prime \prime}\left(x_0\right)+O\left(h^5\right),
+ -f(x_0+2 h)&=-f\left(x_0\right)-2h f^{\prime}\left(x_0\right)-\frac{4 h^2}{2} f^{\prime \prime}\left(x_0\right)-\frac{8 h^3}{6} f^{\prime\prime \prime}\left(x_0\right)-\dfrac{16h^4}{24}f^{(4)}(x_0)-\dfrac{32h^5}{120}f^{(5)}(x_0)\\
+&\hspace{0.5cm}+O\left(h^6\right),\\
+f(x_0-2 h)&=f\left(x_0\right)-2 h f^{\prime}\left(x_0\right)+\frac{4 h^2}{2}f^{\prime\prime}(x_0)-\frac{8 h^3}{6} f^{\prime \prime \prime}\left(x_0\right)+\dfrac{16h^4}{24}f^{(4)}(x_0)-\dfrac{32h^5}{120}f^{(5)}(x_0)\\
+&\hspace{0.5cm}+O\left(h^6\right),
 \end{aligned}
 $$
 
 sumando estas expresiones obtenemos que 
 
-$$8f\left(x_0+h\right)-8f\left(x_0-h\right)-f(x+2h)+f(x_0+2h)=12hf^{\prime}(x_0)+O(h^5).$$
+$$8f\left(x_0+h\right)-8f\left(x_0-h\right)-f(x+2h)+f(x_0+2h)=12hf^{\prime}(x_0)-\dfrac{2h^5}{5}f^{(5)}(x_0)+O(h^6).$$
 
 En efecto 
 
 \begin{align*}
      \dfrac{-f(x_0 + 2h) + 8f(x_0 + h) - 8f(x_0 - h) + f(x_0 - 2h)}{12h}&=\dfrac{12hf^{\prime}(x_0)+O(h^5)}{12h}\\
-     =f^{\prime}(x_0)+O(h^4)
+     =f^{\prime}(x_0)+O(h^4),
 \end{align*}
 
+de hecho no era necesario controlar el error de de la quinta derivada para concluir este primer numeral, pero lo hicimos para poder adaptar el programa y visualizar de manera más precisa el error de truncamiento, obtenemos que el primer término de error es
+
+$$\dfrac{h^4}{30}f^{\prime\prime\prime\prime\prime}(x_0)$$
 \end{proof}
+
+Para este caso obtuvimos la siguiente gráfica del comportamiento del error
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\linewidth]{Gráficas/P5-2.eps}
+    \caption{P5-2}
+    \label{figcoyoyoyo}
+\end{figure}
+
 \subsection*{Problema6}
 Repaso de notación \( O \) mayúscula y \( o \) minúscula de una función. Si \( f(x) = O(x^2) \), \( g(x) = O(x^3) \) y \( h(x) = O(x^3) \) cuando \( x \to 0 \), ¿cuáles de las siguientes afirmaciones son verdaderas? Justifique sus respuestas.
 
